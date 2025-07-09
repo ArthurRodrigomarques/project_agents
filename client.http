@@ -1,0 +1,6 @@
+# Variables
+
+@BaseUrl =  http://localhost:3333
+
+# Get rooms 
+GET {{BaseUrl}}/rooms
