@@ -2,5 +2,9 @@
 
 @BaseUrl =  http://localhost:3333
 
+# Health check
+GET {{BaseUrl}}/health
+###
+
 # Get rooms 
 GET {{BaseUrl}}/rooms
