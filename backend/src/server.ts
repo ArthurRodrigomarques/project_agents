@@ -5,18 +5,23 @@ import {
   validatorCompiler,
   type ZodTypeProvider,
 } from "fastify-type-provider-zod";
+import { fastifyMultipart } from "@fastify/multipart";
+
 // import { sql } from './db/connection.ts';
 import { env } from "./env.ts";
 import { getRoomsRoute } from "./http/routes/get-rooms.ts";
 import { CreateRoomRoute } from "./http/routes/create-room.ts";
 import { getRoomsQuestions } from "./http/routes/get-room-questions.ts";
 import { CreateQuestionRoute } from "./http/routes/create-question.ts";
+import { uploadAudioRoute } from "./http/routes/upload-audio.ts";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 
 app.register(fastifyCors, {
   origin: "http://localhost:5173",
 });
+
+app.register(fastifyMultipart);
 
 app.setSerializerCompiler(serializerCompiler);
 app.setValidatorCompiler(validatorCompiler);
@@ -28,6 +33,7 @@ app.get("/health", () => {
 app.register(getRoomsRoute);
 app.register(CreateRoomRoute);
 app.register(getRoomsQuestions);
-app.register(CreateQuestionRoute)
+app.register(CreateQuestionRoute);
+app.register(uploadAudioRoute);
 
 app.listen({ port: env.PORT });
